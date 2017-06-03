@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.girlgo.cms.pojo.User;
@@ -16,25 +17,33 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping("/to_register")
+	public String toRegister(){
+		return "/register";
+	}
+	
+	@RequestMapping("/to_login")
+	public String toLogin(){
+		return "/login";
+	}
 	
 	@RequestMapping("/register")
-	public String register(User user,HttpServletRequest request){
+	public String register(User user,HttpServletRequest request,ModelMap map){
 		String requestIp = request.getRemoteHost();
 		user.setLastLoginIp(requestIp);
 		user.setRegisterIp(requestIp);
 		User res = userService.createUser(user);
-		if(res != null){
-			return "success";
-		}
-		return "fail";
+		map.put("user", res);
+		return "/register";
 	}
 	
 	@RequestMapping("/login")
-	public String login(User user,HttpServletRequest request){
+	public String login(User user,HttpServletRequest request,ModelMap map){
 		String requestIp = request.getRemoteHost();
 		user.setLastLoginIp(requestIp);
 		user.setRegisterIp(requestIp);
 		String res = userService.login(user);
-		return res;
+		map.put("user", res);
+		return "/login";
 	}
 }
