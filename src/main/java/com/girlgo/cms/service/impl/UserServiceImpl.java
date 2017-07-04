@@ -26,14 +26,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String login(User user) {
-		String username = user.getUserName();
+	public User login(User user) {
+		String username = user.getUsername();
 		username = username != null ? MD5.parseMD5(username):username;
-		user = dao.selectByParams(user.getUserName(), user.getPassword(), user.getEmail());
-		if(user != null){
-			return "success";
-		}
-		return "fail";
+		user = dao.selectByParams(user.getUsername(), user.getPassword(), user.getEmail());
+		return user;
+	}
+	
+	@Override
+	public User selectById(Integer id) {
+		User user = dao.selectByPrimaryKey(id);
+		return user;
 	}
 
 }

@@ -108,12 +108,15 @@
 }
 </style>
 </head>
-<body>
+<body  style="background-color:#F7F7F7;" >
 	<div class="menu_head">
 		<div> GRILGO BLOG </div>
 		<div id="menu_btn">
-			<span><a href="user/to_login">login</a></span>  /  
-			<span><a href="user/to_register">register</a></span>
+			<span>
+				<a href="user/to_login">login</a>  
+					/  
+				<a href="user/to_register">register</a>
+			</span>
 		</div>
 	</div>
 	<div id="footer">

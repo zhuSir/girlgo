@@ -19,12 +19,12 @@ public class UserController {
 	
 	@RequestMapping("/to_register")
 	public String toRegister(){
-		return "/register";
+		return "/register_phone";
 	}
 	
 	@RequestMapping("/to_login")
 	public String toLogin(){
-		return "/login";
+		return "/login_phone";
 	}
 	
 	@RequestMapping("/register")
@@ -42,8 +42,13 @@ public class UserController {
 		String requestIp = request.getRemoteHost();
 		user.setLastLoginIp(requestIp);
 		user.setRegisterIp(requestIp);
-		String res = userService.login(user);
-		map.put("user", res);
-		return "/login";
+		user = userService.login(user);
+		String resStr = user == null ? "fail" : "success";
+		map.put("user", resStr);
+		request.getServletContext().setAttribute("user", user);
+		if("fail".equals(resStr)){
+			return "/login_phone";
+		}
+		return "redirect:/note/note-list";
 	}
 }

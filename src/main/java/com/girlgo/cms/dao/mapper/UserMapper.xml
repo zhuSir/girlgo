@@ -3,39 +3,314 @@
 <mapper namespace="com.girlgo.cms.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.girlgo.cms.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="head_pic" jdbcType="VARCHAR" property="headPic" />
+    <result column="company_name" jdbcType="INTEGER" property="companyName" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
-    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="contact_info" jdbcType="VARCHAR" property="contactInfo" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
-    <result column="login_count" jdbcType="VARCHAR" property="loginCount" />
-    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="login_times" jdbcType="INTEGER" property="loginTimes" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="role" jdbcType="SMALLINT" property="role" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, password, phone, nickname, age, gender, email, register_time, register_ip, 
-    last_login_time, last_login_ip, login_count, state
+    id, phone, nickname, username, password, head_pic, company_name, email, age, sex, 
+    contact_info, open_id, last_login_time, last_login_ip, login_times, register_time, 
+    register_ip, state, remark, updatetime, is_del, token, role
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from g_user
+    from user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.girlgo.cms.pojo.User">
+    insert into user (id, phone, nickname, 
+      username, password, head_pic, 
+      company_name, email, age, 
+      sex, contact_info, open_id, 
+      last_login_time, last_login_ip, login_times, 
+      register_time, register_ip, state, 
+      remark, updatetime, is_del, 
+      token, role)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{headPic,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{contactInfo,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, #{loginTimes,jdbcType=INTEGER}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{registerIp,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER}, 
+      #{token,jdbcType=VARCHAR}, #{role,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.girlgo.cms.pojo.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="headPic != null">
+        head_pic,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="contactInfo != null">
+        contact_info,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip,
+      </if>
+      <if test="loginTimes != null">
+        login_times,
+      </if>
+      <if test="registerTime != null">
+        register_time,
+      </if>
+      <if test="registerIp != null">
+        register_ip,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="headPic != null">
+        #{headPic,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="contactInfo != null">
+        #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTimes != null">
+        #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerIp != null">
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.girlgo.cms.pojo.User">
+    update user
+    <set>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="headPic != null">
+        head_pic = #{headPic,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="contactInfo != null">
+        contact_info = #{contactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTimes != null">
+        login_times = #{loginTimes,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registerIp != null">
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.girlgo.cms.pojo.User">
+    update user
+    set phone = #{phone,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      head_pic = #{headPic,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      contact_info = #{contactInfo,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      login_times = #{loginTimes,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER},
+      token = #{token,jdbcType=VARCHAR},
+      role = #{role,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
   <!-- select user info -->
   <select id="selectByParams" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from g_user
-    where
+    from user
     <where>
-	    <if test="userName != null">
-			and user_name = #{userName,jdbcType=VARCHAR}
+	    <if test="username != null">
+			and username = #{username,jdbcType=VARCHAR}
 	    </if> 
     	<if test="password != null">
 			and password = #{password,jdbcType=VARCHAR}
@@ -44,176 +319,5 @@
 			and email = #{email,jdbcType=VARCHAR}
 	    </if> 
     </where>
-    
   </select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from g_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.girlgo.cms.pojo.User">
-    insert into g_user (id, user_name, password, 
-      phone, nickname, age, 
-      gender, email, register_time, 
-      register_ip, last_login_time, last_login_ip, 
-      login_count, state)
-    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{gender,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
-      #{registerIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, 
-      #{loginCount,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.girlgo.cms.pojo.User">
-    insert into g_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="phone != null">
-        phone,
-      </if>
-      <if test="nickname != null">
-        nickname,
-      </if>
-      <if test="age != null">
-        age,
-      </if>
-      <if test="gender != null">
-        gender,
-      </if>
-      <if test="email != null">
-        email,
-      </if>
-      <if test="registerTime != null">
-        register_time,
-      </if>
-      <if test="registerIp != null">
-        register_ip,
-      </if>
-      <if test="lastLoginTime != null">
-        last_login_time,
-      </if>
-      <if test="lastLoginIp != null">
-        last_login_ip,
-      </if>
-      <if test="loginCount != null">
-        login_count,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="registerTime != null">
-        #{registerTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="registerIp != null">
-        #{registerIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginTime != null">
-        #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastLoginIp != null">
-        #{lastLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="loginCount != null">
-        #{loginCount,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.girlgo.cms.pojo.User">
-    update g_user
-    <set>
-      <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="registerTime != null">
-        register_time = #{registerTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="registerIp != null">
-        register_ip = #{registerIp,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLoginTime != null">
-        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="lastLoginIp != null">
-        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
-      </if>
-      <if test="loginCount != null">
-        login_count = #{loginCount,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.girlgo.cms.pojo.User">
-    update g_user
-    set user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      gender = #{gender,jdbcType=INTEGER},
-      email = #{email,jdbcType=VARCHAR},
-      register_time = #{registerTime,jdbcType=TIMESTAMP},
-      register_ip = #{registerIp,jdbcType=VARCHAR},
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
-      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
-      login_count = #{loginCount,jdbcType=VARCHAR},
-      state = #{state,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>
