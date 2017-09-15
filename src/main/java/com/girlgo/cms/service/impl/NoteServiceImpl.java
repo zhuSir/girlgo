@@ -21,8 +21,13 @@ public class NoteServiceImpl implements NoteService{
 	}
 
 	@Override
-	public List<Note> selectListByUser(Integer userId) {
-		return dao.selectListByUserId(userId);
+	public List<Note> selectListByUser(Integer userId,Integer curPage,Integer pageSize) {
+		Integer startIndex = 0; 
+		if(curPage != null && curPage > 0 
+				&& pageSize != null && pageSize > 0){
+			startIndex = (curPage-1)*pageSize;
+		}
+		return dao.selectListByUserId(userId,startIndex,pageSize);
 	}
 	
 }

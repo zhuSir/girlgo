@@ -17,14 +17,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/to_register")
+	@RequestMapping("/to/register")
 	public String toRegister(){
-		return "/register_phone";
+		return "/register";
 	}
 	
-	@RequestMapping("/to_login")
+	@RequestMapping("/to/login")
 	public String toLogin(){
-		return "/login_phone";
+		return "/login";
 	}
 	
 	@RequestMapping("/register")
@@ -47,8 +47,8 @@ public class UserController {
 		map.put("user", resStr);
 		request.getServletContext().setAttribute("user", user);
 		if("fail".equals(resStr)){
-			return "/login_phone";
+			return "/login";
 		}
-		return "redirect:/note/note-list";
+		return "redirect:/note/to/list";
 	}
 }

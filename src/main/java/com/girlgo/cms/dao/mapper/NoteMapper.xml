@@ -154,12 +154,18 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <select id="selectListByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectListByUserId" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />,
     <include refid="Blob_Column_List" />
     from note
-    where user_id = #{userId}
+    <if test="userId != null ">
+    	where user_id = #{userId}
+    </if>
+    ORDER BY updatetime DESC
+    <if test="startIndex != null and pageSize > 0">
+   		limit #{startIndex},#{pageSize}
+    </if>
   </select>
   
 </mapper>

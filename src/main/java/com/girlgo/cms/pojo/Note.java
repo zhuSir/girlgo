@@ -1,6 +1,9 @@
 package com.girlgo.cms.pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class Note {
     private Integer id;
@@ -20,8 +23,22 @@ public class Note {
     private String content;
     
     private String imgPath;
+    
+    private String create_time_str;
 
-    public String getImgPath() {
+    public String getCreate_time_str() {
+    	if(createtime != null && !StringUtils.isNotEmpty(create_time_str)){
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		create_time_str = sdf.format(createtime);
+    	}
+		return create_time_str;
+	}
+
+	public void setCreate_time_str(String create_time_str) {
+		this.create_time_str = create_time_str;
+	}
+
+	public String getImgPath() {
 		return imgPath;
 	}
 

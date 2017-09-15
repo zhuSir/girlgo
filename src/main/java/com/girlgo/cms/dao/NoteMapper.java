@@ -2,6 +2,7 @@ package com.girlgo.cms.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.girlgo.cms.pojo.Note;
@@ -22,5 +23,7 @@ public interface NoteMapper {
 
     int updateByPrimaryKey(Note record);
     
-    List<Note> selectListByUserId(Integer userId);
+    List<Note> selectListByUserId(@Param("userId")Integer userId);
+
+	List<Note> selectListByUserId(@Param("userId")Integer userId,@Param("startIndex")Integer startIndex,@Param("pageSize") Integer pageSize);
 }

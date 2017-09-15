@@ -16,20 +16,16 @@
     
     <!-- 解决@ResponseBody中文乱码 -->
     <mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">  
-			        <list>  
-			            <bean class="org.springframework.http.MediaType">  
-			                <constructor-arg value="text" />
-			                <constructor-arg value="html" />
-			                <constructor-arg value="UTF-8" />
-			            </bean>  
-			        </list>  
-			    </property>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
             </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
     
     <!-- json映射 -->
     <bean id="jsonMapping" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>

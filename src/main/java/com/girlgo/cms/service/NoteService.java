@@ -8,6 +8,6 @@ public interface NoteService {
 	
 	public void saveNote(Note note);
 	
-	public List<Note> selectListByUser(Integer userId);
+	public List<Note> selectListByUser(Integer userId,Integer pageNunber,Integer pageSize);
 		
 }
